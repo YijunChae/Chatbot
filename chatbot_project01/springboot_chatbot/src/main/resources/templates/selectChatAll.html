@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>실시간 챗봇 대화</title>
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            background-color: #1f1f1f;
+            width: 400px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            color: #e0e0e0;
+        }
+
+        .chat-title {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #bb86fc;
+            font-weight: bold;
+        }
+
+        .chat-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #292929;
+            color: #e0e0e0;
+        }
+
+        .chat-submit {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #bb86fc;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-submit:hover {
+            background-color: #985eff;
+        }
+
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+        }
+
+        .user-message {
+            color: #bb86fc;
+            font-weight: bold;
+        }
+
+        .bot-message {
+            color: #03dac6;
+        }
+
+        .chat-message p {
+            margin: 5px 0;
+        }
+
+        /* 스크롤 바 스타일 */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #1f1f1f;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #bb86fc;
+            border-radius: 10px;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 500px) {
+            .chat-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-title">실시간 챗봇 대화</div>
+        <form class="chat-form" action="insertChatControl" method="post">
+            <input type="text" name="input" class="chat-input" placeholder="메시지를 입력하세요...">
+            <input type="submit" value="채팅" class="chat-submit">
+        </form>
+        
+        <div class="chat-messages">
+            <div class="chat-message" th:each="chat : ${allChat}">
+                <p class="user-message" th:text="'사용자 : ' + ${chat.input}"></p>
+                <p class="bot-message" th:text="'챗봇 : ' + ${chat.chatbot}"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
